@@ -1,0 +1,6 @@
+@ProjetFlashcard_HostAddress = http://localhost:5285
+
+GET {{ProjetFlashcard_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
