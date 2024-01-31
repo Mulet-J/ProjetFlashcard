@@ -1,6 +1,6 @@
 ﻿using System.Numerics;
 
-namespace ProjetFlashcard.domain
+namespace ProjetFlashcard.Domain.Entities
 {
     public class Card
     {

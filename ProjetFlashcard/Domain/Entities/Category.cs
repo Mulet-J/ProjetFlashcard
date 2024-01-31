@@ -1,4 +1,4 @@
-﻿namespace ProjetFlashcard.domain
+﻿namespace ProjetFlashcard.Domain.Entities
 {
     enum Category : int
     {

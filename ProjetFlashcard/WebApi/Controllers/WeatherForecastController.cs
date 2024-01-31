@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ProjetFlashcard.Controllers
+namespace ProjetFlashcard.WebApi.Controllers
 {
     [ApiController]
     [Route("[controller]")]
