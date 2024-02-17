@@ -1,15 +1,17 @@
-﻿namespace ProjetFlashcard.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProjetFlashcard.Domain.Entities
 {
     public class CardUserData
     {
+        [Key]
         public string Id { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
-        /// <summary>
-        /// ça fait un truc
-        /// </summary>
-        /// <param name="question"></param>
-        /// <param name="answer"></param>
+
+        #pragma warning disable CS8618
+        public CardUserData() { }
+
         public CardUserData(string question, string answer)
         {
             Id = Guid.NewGuid().ToString();

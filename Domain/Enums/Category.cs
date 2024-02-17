@@ -1,6 +1,6 @@
-﻿namespace ProjetFlashcard.Domain.Entities
+﻿namespace ProjetFlashcard.Domain.Enums
 {
-    enum Category : int
+    public enum Category : int
     {
         FIRST = 0,
         SECOND = 1,

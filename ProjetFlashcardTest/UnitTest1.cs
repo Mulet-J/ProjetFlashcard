@@ -1,4 +1,4 @@
-using ProjetFlashcard.Domain.Entities;
+global using Moq;
 
 namespace ProjetFlashcardTest
 {
@@ -13,8 +13,13 @@ namespace ProjetFlashcardTest
         [Test]
         public void Test1()
         {
-            CardUserData cardUser = new CardUserData("azezae", "aeazez");
-            CardUserData cardUserData = new CardUserData(Guid.NewGuid().ToString(), "azezae", "ajhkgh");
+            Mock<ICardService> cardServiceStub = new Mock<ICardService>();
+
+            //cardServiceStub
+            //    .Setup(x => x.GetAllCards(null))
+            //    .Returns()
+                
+
             Assert.Pass();
         }
     }
