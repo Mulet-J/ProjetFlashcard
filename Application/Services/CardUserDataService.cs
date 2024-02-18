@@ -9,16 +9,11 @@ using System.Threading.Tasks;
 
 namespace ProjetFlashcard.Application.Services
 {
-    public class CardUserDataService : ICardUserDataService
+    public class CardUserDataService(ICardUserDataRepository cardUserDataRepository) : ICardUserDataService
     {
+        private readonly ICardUserDataRepository _cardUserDataRepository = cardUserDataRepository;
 
-        private IRepository<CardUserData> _cardUserDataRepository;
-        public CardUserDataService(IRepository<CardUserData> cardUserDataRepository)
-        {
-            _cardUserDataRepository = cardUserDataRepository;
-        }
-
-        public List<CardUserData> getAllCards()
+        public List<CardUserData> GetAllCards()
         {
             return this._cardUserDataRepository.GetAll();
         }

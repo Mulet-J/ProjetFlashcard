@@ -1,14 +1,16 @@
-﻿namespace ProjetFlashcard.Domain.Enums
+﻿using System.Runtime.Serialization;
+
+namespace ProjetFlashcard.Domain.Enums
 {
-    public enum Category : int
+    public enum Category
     {
-        FIRST = 0,
-        SECOND = 1,
-        THIRD = 2,
-        FOURTH = 3,
-        FIFTH = 4,
-        SIXTH = 5,
-        SEVENTH = 6,
-        DONE = 7
+        FIRST = 1,
+        SECOND = 2,
+        THIRD = 4,
+        FOURTH = 8,
+        FIFTH = 16,
+        SIXTH = 32,
+        SEVENTH = 64,
+        DONE = 0,
     }
 }

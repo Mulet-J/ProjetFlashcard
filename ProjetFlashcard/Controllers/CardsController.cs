@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using ProjetFlashcard.Application.DTOs;
 using ProjetFlashcard.Application.Interfaces;
+using ProjetFlashcard.Application.Mappers;
 using ProjetFlashcard.Domain.Entities;
+using System.Runtime.Serialization;
 
 namespace WebApi.Controllers
 {
@@ -12,36 +15,43 @@ namespace WebApi.Controllers
         private readonly ICardUserDataService _cardUserDataService = cardUserDataService;
 
         [HttpGet]
-        public string Index([FromQuery(Name = "tags")]string tags)
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(CardGetDTO), StatusCodes.Status200OK)]
+        public IActionResult Index([FromQuery(Name = "tags")]List<string> tags)
         {
-            _cardUserDataService.getAllCards();
-            return "zedsgfhj";
+            var cards = _cardService.GetAllCardsAsDTO(tags);
+            return Ok(cards);
         }
 
         [HttpPost]
-        public string CreateNewCard()
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(CardGetDTO),StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(void),StatusCodes.Status400BadRequest)]
+        public IActionResult CreateNewCard([FromBody] CardPostDTO cardDTO)
         {
-            CardUserData cardUserData = new()
-            {
-                Answer = "answer",
-                Question = "question",
-                Id = Guid.NewGuid().ToString()
-            };
-            _cardUserDataService.AddCardUserData(cardUserData);
+            CardUserData cardUserData = new(cardDTO.Question, cardDTO.Answer, cardDTO.Tag);
+            Card card = new(cardUserData);
+            _cardService.AddCard(card);
             
-            return "a";
+            return Ok(CardDTOMapper.MapToGetDTO(card));
         }
 
         [HttpGet("quizz")]
-        public string Quizz()
+        [Produces("application/json")]
+        [ProducesResponseType(typeof(List<CardGetDTO>),StatusCodes.Status200OK)]
+        public IActionResult Quizz([FromQuery] DateOnly date)
         {
-            return "quizz";
+            return Ok(_cardService.GetCardsToAnswerForDateAsDTO(date));
         }
 
-        [HttpPatch("{cardUID}/answer")]
-        public string AnswerCard(string cardUID)
+        [HttpPatch("{cardId}/answer")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(void),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(void),StatusCodes.Status404NotFound)]
+        public IActionResult AnswerCard([FromRoute] string cardId, [FromBody] AnswerDTO answer)
         {
-            return "wow" + cardUID;
+            _cardService.AnswerCard(cardId, answer.IsValid);
+            return NotFound(null);
         }
     }
 }

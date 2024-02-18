@@ -1,4 +1,4 @@
-﻿using Infrastructure.DatabaseContext;
+﻿using ProjetFlashcard.Infrastructure.DatabaseContext;
 using ProjetFlashcard.Domain.Entities;
 using ProjetFlashcard.Domain.Repositories;
 using System;
@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Persistence
 {
-    public class CardUserDataRepository(IAppDbContext context) : IRepository<CardUserData>
+    public class CardUserDataRepository(IAppDbContext context) : ICardUserDataRepository
     {
         private readonly IAppDbContext _context = context;
 

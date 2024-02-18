@@ -5,7 +5,7 @@ namespace ProjetFlashcard.Application.Interfaces
 {
     public interface ICardUserDataService
     {
-        List<CardUserData> getAllCards();
+        List<CardUserData> GetAllCards();
 
         void AddCardUserData(CardUserData cardUserData);
 

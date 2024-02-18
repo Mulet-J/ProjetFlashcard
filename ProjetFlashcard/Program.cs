@@ -1,8 +1,7 @@
-using Infrastructure.DatabaseContext;
+using ProjetFlashcard.Infrastructure.DatabaseContext;
 using Infrastructure.Persistence;
 using ProjetFlashcard.Application.Interfaces;
 using ProjetFlashcard.Application.Services;
-using ProjetFlashcard.Domain.Entities;
 using ProjetFlashcard.Domain.Repositories;
 using ProjetFlashcard.Infrastructure.Persistence;
 
@@ -18,8 +17,8 @@ builder.Services.AddSwaggerGen();
 // Dependency Injection
 builder.Services.AddSingleton<IAppDbContext, PostgresDbContext>();
 
-builder.Services.AddSingleton<IRepository<CardUserData>, CardUserDataRepository>();
-builder.Services.AddSingleton<IRepository<Card>, CardRepository>();
+builder.Services.AddSingleton<ICardUserDataRepository, CardUserDataRepository>();
+builder.Services.AddSingleton<ICardRepository, CardRepository>();
 
 builder.Services.AddSingleton<ICardUserDataService, CardUserDataService>();
 builder.Services.AddSingleton<ICardService, CardService>();

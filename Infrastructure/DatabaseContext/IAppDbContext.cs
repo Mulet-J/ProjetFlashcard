@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Infrastructure.DatabaseContext
+namespace ProjetFlashcard.Infrastructure.DatabaseContext
 {
     public interface IAppDbContext : IDisposable
     {
