@@ -17,10 +17,8 @@ builder.Services.AddSwaggerGen();
 // Dependency Injection
 builder.Services.AddSingleton<IAppDbContext, PostgresDbContext>();
 
-builder.Services.AddSingleton<ICardUserDataRepository, CardUserDataRepository>();
 builder.Services.AddSingleton<ICardRepository, CardRepository>();
 
-builder.Services.AddSingleton<ICardUserDataService, CardUserDataService>();
 builder.Services.AddSingleton<ICardService, CardService>();
 
 var app = builder.Build();

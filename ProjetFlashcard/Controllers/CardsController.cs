@@ -9,10 +9,9 @@ namespace WebApi.Controllers
 {
     [ApiController]
     [Route("cards")]
-    public class CardsController(ICardService cardService, ICardUserDataService cardUserDataService) : ControllerBase
+    public class CardsController(ICardService cardService) : ControllerBase
     {
         private readonly ICardService _cardService = cardService;
-        private readonly ICardUserDataService _cardUserDataService = cardUserDataService;
 
         [HttpGet]
         [Produces("application/json")]
