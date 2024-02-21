@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc;
 using ProjetFlashcard.Application.DTOs;
 using ProjetFlashcard.Application.Interfaces;
 using ProjetFlashcard.Application.Mappers;
 using ProjetFlashcard.Domain.Entities;
-using System.Runtime.Serialization;
 
-namespace WebApi.Controllers
+namespace ProjetFlashcard.WebApi.Controllers
 {
     [ApiController]
     [Route("cards")]
@@ -16,7 +16,7 @@ namespace WebApi.Controllers
         [HttpGet]
         [Produces("application/json")]
         [ProducesResponseType(typeof(CardGetDTO), StatusCodes.Status200OK)]
-        public IActionResult Index([FromQuery(Name = "tags")]List<string> tags)
+        public IActionResult GetAllCards([FromQuery(Name = "tags")]List<string> tags)
         {
             var cards = _cardService.GetAllCardsAsDTO(tags);
             return Ok(cards);
@@ -31,8 +31,9 @@ namespace WebApi.Controllers
             CardUserData cardUserData = new(cardDTO.Question, cardDTO.Answer, cardDTO.Tag);
             Card card = new(cardUserData);
             _cardService.AddCard(card);
-            
-            return Ok(CardDTOMapper.MapToGetDTO(card));
+            CardGetDTO cardGetDTO = CardDTOMapper.MapToGetDTO(card);
+
+            return Created("",cardGetDTO);
         }
 
         [HttpGet("quizz")]
@@ -50,7 +51,7 @@ namespace WebApi.Controllers
         public IActionResult AnswerCard([FromRoute] string cardId, [FromBody] AnswerDTO answer)
         {
             _cardService.AnswerCard(cardId, answer.IsValid);
-            return NotFound(null);
+            return NoContent();
         }
     }
 }

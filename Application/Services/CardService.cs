@@ -38,7 +38,15 @@ namespace ProjetFlashcard.Application.Services
 
         public List<CardGetDTO> GetAllCardsAsDTO(List<string> tags)
         {
-            var cards = this.GetAllCards(tags);
+            List<Card> cards;
+            if (tags.Count == 0)
+            {
+                cards = this._cardRepository.GetAll();
+            }
+            else
+            {
+                cards = this._cardRepository.GetCardsByTags(tags);
+            }
             return cards.Select(CardDTOMapper.MapToGetDTO).ToList();
         }
 
@@ -60,18 +68,26 @@ namespace ProjetFlashcard.Application.Services
             return CardDTOMapper.MapToGetDTO(cards);
         }
 
-        public int AnswerCard(string cardId, bool isValid)
+        public Card AnswerCard(string cardId, bool isValid)
         {
             Card card = this._cardRepository.GetById(cardId);
             if(isValid)
             {
-                _cardRepository.UpdateCategory(card);
+                card.Category = CategoryHelpers.GetNextCategory(card.Category);
             }
             else
             {
-                _cardRepository.ResetCategory(card);
+                card.Category = CategoryHelpers.GetFirstCategory();
             }
-            return 204;
+            card.LastAnswerDate = DateOnly.FromDateTime(DateTime.Now);
+            _cardRepository.Update(card);
+            return card;
+            /**
+             *             card.Category = CategoryHelpers.GetNextCategory(card.Category);
+            card.LastAnswerDate = DateOnly.FromDateTime(DateTime.Now);
+            _context.Cards.Update(card);
+            _context.SaveChanges();
+                         */
         }
     }
 }

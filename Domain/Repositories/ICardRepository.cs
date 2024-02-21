@@ -13,7 +13,5 @@ namespace ProjetFlashcard.Domain.Repositories
     {
         List<Card> GetCardsByTags(List<string> tags);
         List<Card> GetCardsToAnswerForDate(DateOnly date, Category category);
-        void UpdateCategory(Card card);
-        void ResetCategory(Card card);
     }
 }

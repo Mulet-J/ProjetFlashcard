@@ -17,7 +17,7 @@ namespace ProjetFlashcard.Application.DTOs
         }
 
         #pragma warning disable CS8618
-        CardPostDTO() { }
+        public CardPostDTO() { }
         #pragma warning restore CS8618
     }
 }

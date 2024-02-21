@@ -1,5 +1,4 @@
 using ProjetFlashcard.Infrastructure.DatabaseContext;
-using Infrastructure.Persistence;
 using ProjetFlashcard.Application.Interfaces;
 using ProjetFlashcard.Application.Services;
 using ProjetFlashcard.Domain.Repositories;

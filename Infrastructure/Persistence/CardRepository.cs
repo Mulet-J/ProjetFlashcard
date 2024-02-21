@@ -56,21 +56,6 @@ namespace ProjetFlashcard.Infrastructure.Persistence
         public void Update(Card entity)
         {
             _context.Cards.Update(entity);
-        }
-
-        public void UpdateCategory(Card card)
-        {
-            card.Category = CategoryHelpers.GetNextCategory(card.Category);
-            card.LastAnswerDate = DateOnly.FromDateTime(DateTime.Now);
-            _context.Cards.Update(card);
-            _context.SaveChanges();
-        }
-
-        public void ResetCategory(Card card)
-        {
-            card.Category = CategoryHelpers.GetFirstCategory();
-            card.LastAnswerDate = DateOnly.FromDateTime(DateTime.Now);
-            _context.Cards.Update(card);
             _context.SaveChanges();
         }
     }

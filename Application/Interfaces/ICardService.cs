@@ -9,6 +9,6 @@ namespace ProjetFlashcard.Application.Interfaces
         public int AddCard(Card card);
         public List<CardGetDTO> GetAllCardsAsDTO(List<string> tags);
         public List<CardGetDTO> GetCardsToAnswerForDateAsDTO(DateOnly date);
-        public int AnswerCard(string cardId, bool isValid);
+        public Card AnswerCard(string cardId, bool isValid);
     }
 }
