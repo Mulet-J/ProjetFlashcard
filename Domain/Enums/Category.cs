@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace ProjetFlashcard.Domain.Enums
+namespace Domain.Enums
 {
     public enum Category
     {

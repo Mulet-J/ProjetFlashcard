@@ -1,11 +1,6 @@
-﻿using ProjetFlashcard.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Domain.Enums;
 
-namespace ProjetFlashcard.Domain.Helpers
+namespace Domain.Helpers
 {
     public static class CategoryHelpers
     {
@@ -16,7 +11,7 @@ namespace ProjetFlashcard.Domain.Helpers
         /// <returns>Category name</returns>
         public static string GetCategoryName(Category category)
         {
-            return Enum.GetName(typeof(Category), category);
+            return category.ToString();
         }
         /// <summary>
         /// Get next category
@@ -25,7 +20,7 @@ namespace ProjetFlashcard.Domain.Helpers
         /// <returns>Next category, or current category if there was an issue with the parameter</returns>
         public static Category GetNextCategory(Category category)
         {
-            if(category.Equals(Category.SEVENTH) || category.Equals(Category.DONE))
+            if (category.Equals(Category.SEVENTH) || category.Equals(Category.DONE))
             {
                 return Category.DONE;
             }

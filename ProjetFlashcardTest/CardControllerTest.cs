@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
-using ProjetFlashcard.Application.DTOs;
-using ProjetFlashcard.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebApi.DTOs;
 
 namespace ProjetFlashcardTest
 {
@@ -27,82 +21,85 @@ namespace ProjetFlashcardTest
         [Test]
         public void GetAllCardsTest()
         {
-            List<Card> cards = new();
+            List<Card> cards = [];
             _cardRepositoryMock.Setup(x => x.GetAll()).Returns(cards);
             _cardServiceMock.Setup(x => x.GetAllCards(new())).Returns(cards);
 
-            var result = _controller.GetAllCards(new());
+            var result = _controller.GetAllCards([]);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
         }
 
         [Test]
         public void CreateNewCardTest()
         {
-            CardPostDTO cardDTO = new();
+            CardPostDto cardDTO = new()
+            {
+                Answer = "answer",
+                Question = "question",
+                Tag = "tag"
+            };
             Card card = new();
             _cardServiceMock.Setup(x => x.AddCard(card)).Returns(1);
 
             var result = _controller.CreateNewCard(cardDTO);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<CreatedResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<CreatedResult>());
         }
 
         [Test]
         public void CreateNewCardWithBadRequestTest()
         {
-            CardPostDTO cardDTO = new();
-            Card card = new();
-            _cardServiceMock.Setup(x => x.AddCard(card)).Returns(0);
+            CardPostDto cardDTO = new();
+            _cardServiceMock.Setup(x => x.AddCard(It.IsAny<Card>())).Returns(0);
 
             var result = _controller.CreateNewCard(cardDTO);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<BadRequestResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<BadRequestResult>());
         }
 
         [Test]
         public void QuizzTest()
         {
             DateOnly date = new();
-            List<CardGetDTO> cards = new();
-            _cardServiceMock.Setup(x => x.GetCardsToAnswerForDateAsDTO(date)).Returns(cards);
+            List<Card> cards = [];
+            _cardServiceMock.Setup(x => x.GetCardsToAnswerForDate(It.IsAny<DateOnly>())).Returns(cards);
 
             var result = _controller.Quizz(date);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<OkObjectResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<OkObjectResult>());
         }
 
         [Test]
         public void AnswerCardTest()
         {
-            string cardId = "1";
-            AnswerDTO answer = new();
+            const string cardId = "1";
+            AnswerDto answer = new() { IsValid = false };
             Card card = new();
-            _cardServiceMock.Setup(x => x.AnswerCard(cardId, answer.IsValid)).Returns(card);
+            _cardServiceMock.Setup(x => x.AnswerCard(It.IsAny<string>(), It.IsAny<bool>())).Returns(card);
 
             var result = _controller.AnswerCard(cardId, answer);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<NoContentResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<NoContentResult>());
         }
 
         [Test]
         public void AnswerCardWithBadRequestTest()
         {
-            string cardId = "1";
-            AnswerDTO answer = new();
-            Card card = null;
-            _cardServiceMock.Setup(x => x.AnswerCard(cardId, answer.IsValid)).Returns(card);
+            const string cardId = "1";
+            AnswerDto answer = new();
+            Card card = new();
+            _cardServiceMock.Setup(x => x.AnswerCard(It.IsAny<string>(), It.IsAny<bool>())).Returns(card);
 
             var result = _controller.AnswerCard(cardId, answer);
 
-            Assert.IsNotNull(result);
-            Assert.IsInstanceOf<BadRequestResult>(result);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<BadRequestResult>());
         }
     }
-
 }

@@ -1,11 +1,10 @@
-﻿using ProjetFlashcard.Infrastructure.DatabaseContext;
+﻿using Domain.Entities;
+using Domain.Enums;
+using Domain.Repositories;
+using Infrastructure.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using ProjetFlashcard.Domain.Entities;
-using ProjetFlashcard.Domain.Enums;
-using ProjetFlashcard.Domain.Repositories;
-using ProjetFlashcard.Domain.Helpers;
 
-namespace ProjetFlashcard.Infrastructure.Persistence
+namespace Infrastructure.Persistence
 {
     public class CardRepository(IAppDbContext context) : ICardRepository
     {
@@ -26,10 +25,11 @@ namespace ProjetFlashcard.Infrastructure.Persistence
         public List<Card> GetAll()
         {
             return _context.Cards
-                .Include(card => card.CardUserData).ToList();
+                .Include(card => card.CardUserData)
+                .ToList();
         }
 
-        public Card GetById(string id)
+        public Card? GetById(string id)
         {
             return _context.Cards
                 .Include(card => card.CardUserData)
@@ -48,7 +48,7 @@ namespace ProjetFlashcard.Infrastructure.Persistence
         {
             return _context.Cards
                 .Where(card => card.Category == category)
-                .Where(card => card.LastAnswerDate <= date.AddDays((-(int)category)))
+                .Where(card => card.LastAnswerDate <= date.AddDays(-(int)category))
                 .Include(card => card.CardUserData)
                 .ToList();
         }

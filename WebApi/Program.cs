@@ -1,8 +1,8 @@
-using ProjetFlashcard.Infrastructure.DatabaseContext;
-using ProjetFlashcard.Application.Interfaces;
-using ProjetFlashcard.Application.Services;
-using ProjetFlashcard.Domain.Repositories;
-using ProjetFlashcard.Infrastructure.Persistence;
+using Application.Interfaces;
+using Application.Services;
+using Domain.Repositories;
+using Infrastructure.DatabaseContext;
+using Infrastructure.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,4 +35,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run(); 
+app.Run();

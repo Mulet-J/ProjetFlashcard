@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ProjetFlashcard.Domain.Entities
+namespace Domain.Entities
 {
     public class CardUserData
     {
@@ -10,10 +10,10 @@ namespace ProjetFlashcard.Domain.Entities
         public string Answer { get; set; }
         public string Tag { get; set; }
 
-
-        #pragma warning disable CS8618
+        //Empty constructor for EntityFramework
+#pragma warning disable CS8618
         public CardUserData() { }
-        #pragma warning restore CS8618
+#pragma warning restore CS8618
 
         public CardUserData(string question, string answer, string tag)
         {
@@ -21,11 +21,6 @@ namespace ProjetFlashcard.Domain.Entities
             Question = question;
             Answer = answer;
             Tag = tag;
-        }
-
-        public CardUserData(string id, string question, string answer, string tag) : this(question, answer, tag)
-        {
-            Id = id;
         }
     }
 }

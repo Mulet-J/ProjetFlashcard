@@ -1,15 +1,12 @@
-﻿
-
+﻿using Domain.Entities;
+using Infrastructure.ExternalServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using ProjetFlashcard.Domain.Entities;
-using ProjetFlashcard.Infrastructure.ExternalServices;
 
-namespace ProjetFlashcard.Infrastructure.DatabaseContext
+namespace Infrastructure.DatabaseContext
 {
     public class PostgresDbContext : DbContext, IAppDbContext
     {
-
         private readonly IConfiguration _configuration;
         public DbSet<Card> Cards { get; set; }
         public DbSet<CardUserData> CardUserDatas { get; set; }
@@ -22,7 +19,7 @@ namespace ProjetFlashcard.Infrastructure.DatabaseContext
                 .Build();
 
             var isCreated = Database.EnsureCreated();
-            if (isCreated)
+            if (isCreated && Cards is not null)
             {
                 Cards.AddRange(DataInitializer.GetInitialData());
                 this.SaveChanges();
@@ -34,11 +31,5 @@ namespace ProjetFlashcard.Infrastructure.DatabaseContext
             optionsBuilder
                 .UseNpgsql(_configuration.GetSection("ConnectionStrings:WebApiDatabase").Value);
         }
-
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    base.OnModelCreating(modelBuilder);
-        //    modelBuilder.Entity<Card>().HasData(DataInitializer.GetInitialData().ToArray());
-        //}
     }
 }
