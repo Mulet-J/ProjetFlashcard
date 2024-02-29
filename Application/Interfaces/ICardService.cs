@@ -1,14 +1,12 @@
-﻿using ProjetFlashcard.Application.DTOs;
-using ProjetFlashcard.Domain.Entities;
+﻿using Domain.Entities;
 
-namespace ProjetFlashcard.Application.Interfaces
+namespace Application.Interfaces
 {
     public interface ICardService
     {
-        public List<Card> GetAllCards(List<string> tags);
         public int AddCard(Card card);
-        public List<CardGetDTO> GetAllCardsAsDTO(List<string> tags);
-        public List<CardGetDTO> GetCardsToAnswerForDateAsDTO(DateOnly date);
+        public List<Card> GetAllCards(List<string> tags);
+        public List<Card> GetCardsToAnswerForDate(DateOnly date);
         public Card AnswerCard(string cardId, bool isValid);
     }
 }
