@@ -2,7 +2,6 @@
 using Application.Services;
 using Domain.Enums;
 using Domain.Repositories;
-using Infrastructure.ExternalServices;
 
 namespace ProjetFlashcardTest
 {

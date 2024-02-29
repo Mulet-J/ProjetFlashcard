@@ -1,7 +1,7 @@
 ﻿using Domain.Enums;
 using System.Globalization;
 
-namespace Infrastructure.ExternalServices
+namespace ProjetFlashcardTest
 {
     public static class Dataset
     {
