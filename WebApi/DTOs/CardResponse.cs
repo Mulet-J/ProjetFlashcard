@@ -3,7 +3,7 @@ using Domain.Helpers;
 
 namespace WebApi.DTOs
 {
-    public class CardGetDto
+    public class CardResponse
     {
         public string Id { get; set; }
         public string Category { get; set; }
@@ -11,7 +11,7 @@ namespace WebApi.DTOs
         public string Answer { get; set; }
         public string Tag { get; set; }
 
-        public CardGetDto(string id, Category category, string question, string answer, string tag)
+        public CardResponse(string id, Category category, string question, string answer, string tag)
         {
             Id = id;
             Category = CategoryHelpers.GetCategoryName(category);

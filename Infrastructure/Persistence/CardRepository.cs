@@ -35,6 +35,11 @@ namespace Infrastructure.Persistence
                 .Include(card => card.CardUserData)
                 .First(_context => _context.Id == id);
         }
+        public void Update(Card entity)
+        {
+            _context.Cards.Update(entity);
+            _context.SaveChanges();
+        }
 
         public List<Card> GetCardsByTags(List<string> tags)
         {
@@ -51,12 +56,6 @@ namespace Infrastructure.Persistence
                 .Where(card => card.LastAnswerDate <= date.AddDays(-(int)category))
                 .Include(card => card.CardUserData)
                 .ToList();
-        }
-
-        public void Update(Card entity)
-        {
-            _context.Cards.Update(entity);
-            _context.SaveChanges();
         }
     }
 }

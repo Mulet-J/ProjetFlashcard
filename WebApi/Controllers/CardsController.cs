@@ -14,19 +14,19 @@ namespace WebApi.Controllers
 
         [HttpGet]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(CardGetDto), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(CardResponse), StatusCodes.Status200OK)]
         public IActionResult GetAllCards([FromQuery(Name = "tags")] List<string> tags)
         {
             List<Card> cards = _cardService.GetAllCards(tags);
-            List<CardGetDto> cardsGetDto = CardDtoMapper.MapToGetDTO(cards);
+            List<CardResponse> cardsGetDto = CardDtoMapper.MapToGetDTO(cards);
             return Ok(cardsGetDto);
         }
 
         [HttpPost]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(CardGetDto), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(CardResponse), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
-        public IActionResult CreateNewCard([FromBody] CardPostDto cardDTO)
+        public IActionResult CreateNewCard([FromBody] CardCreationRequest cardDTO)
         {
             if (cardDTO.Question == null || cardDTO.Answer == null || cardDTO.Tag == null)
             {
@@ -35,18 +35,18 @@ namespace WebApi.Controllers
             CardUserData cardUserData = new(cardDTO.Question, cardDTO.Answer, cardDTO.Tag);
             Card card = new(cardUserData);
             _cardService.AddCard(card);
-            CardGetDto cardGetDTO = CardDtoMapper.MapToGetDTO(card);
+            CardResponse cardGetDTO = CardDtoMapper.MapToGetDTO(card);
 
             return Created("", cardGetDTO);
         }
 
         [HttpGet("quizz")]
         [Produces("application/json")]
-        [ProducesResponseType(typeof(List<CardGetDto>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<CardResponse>), StatusCodes.Status200OK)]
         public IActionResult Quizz([FromQuery] DateOnly date)
         {
             List<Card> cards = _cardService.GetCardsToAnswerForDate(date);
-            List<CardGetDto> cardsGetDto = CardDtoMapper.MapToGetDTO(cards);
+            List<CardResponse> cardsGetDto = CardDtoMapper.MapToGetDTO(cards);
             return Ok(cardsGetDto);
         }
 
@@ -54,7 +54,7 @@ namespace WebApi.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(void), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(void), StatusCodes.Status404NotFound)]
-        public IActionResult AnswerCard([FromRoute] string cardId, [FromBody] AnswerDto answer)
+        public IActionResult AnswerCard([FromRoute] string cardId, [FromBody] AnwerResponse answer)
         {
             if (answer.IsValid == null)
             {

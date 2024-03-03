@@ -34,7 +34,7 @@ namespace ProjetFlashcardTest
         [Test]
         public void CreateNewCardTest()
         {
-            CardPostDto cardDTO = new()
+            CardCreationRequest cardDTO = new()
             {
                 Answer = "answer",
                 Question = "question",
@@ -52,7 +52,7 @@ namespace ProjetFlashcardTest
         [Test]
         public void CreateNewCardWithBadRequestTest()
         {
-            CardPostDto cardDTO = new();
+            CardCreationRequest cardDTO = new();
             _cardServiceMock.Setup(x => x.AddCard(It.IsAny<Card>())).Returns(0);
 
             var result = _controller.CreateNewCard(cardDTO);
@@ -78,7 +78,7 @@ namespace ProjetFlashcardTest
         public void AnswerCardTest()
         {
             const string cardId = "1";
-            AnswerDto answer = new() { IsValid = false };
+            AnwerResponse answer = new() { IsValid = false };
             Card card = new();
             _cardServiceMock.Setup(x => x.AnswerCard(It.IsAny<string>(), It.IsAny<bool>())).Returns(card);
 
@@ -92,7 +92,7 @@ namespace ProjetFlashcardTest
         public void AnswerCardWithBadRequestTest()
         {
             const string cardId = "1";
-            AnswerDto answer = new();
+            AnwerResponse answer = new();
             Card card = new();
             _cardServiceMock.Setup(x => x.AnswerCard(It.IsAny<string>(), It.IsAny<bool>())).Returns(card);
 

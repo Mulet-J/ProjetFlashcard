@@ -5,12 +5,12 @@ namespace WebApi.Mappers
 {
     public static class CardDtoMapper
     {
-        public static CardGetDto MapToGetDTO(Card card)
+        public static CardResponse MapToGetDTO(Card card)
         {
-            return new CardGetDto(card.Id, card.Category, card.CardUserData.Question, card.CardUserData.Answer, card.CardUserData.Tag);
+            return new CardResponse(card.Id, card.Category, card.CardUserData.Question, card.CardUserData.Answer, card.CardUserData.Tag);
         }
 
-        public static List<CardGetDto> MapToGetDTO(List<Card> cards)
+        public static List<CardResponse> MapToGetDTO(List<Card> cards)
         {
             return cards.ConvertAll(MapToGetDTO);
         }

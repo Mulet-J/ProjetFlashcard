@@ -1,9 +1,9 @@
 ﻿namespace WebApi.DTOs
 {
-    public class AnswerDto
+    public class AnwerResponse
     {
         public bool? IsValid { get; set; }
 
-        public AnswerDto() { }
+        public AnwerResponse() { }
     }
 }
