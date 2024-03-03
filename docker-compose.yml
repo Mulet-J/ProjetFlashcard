@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  web:
+    container_name: flashcards-webapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5285:5285"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+    networks:
+      - flashcards_network
+  postgresql:
+    container_name: flashcards-postgresql
+    image: "postgres:latest"
+    environment:
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "azerty"
+    ports:
+      - "5432:5432"
+    networks:
+      - flashcards_network
+
+networks:
+  flashcards_network:
+    driver: bridge
