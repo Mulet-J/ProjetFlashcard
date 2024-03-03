@@ -8,6 +8,7 @@ WORKDIR /app
 COPY . ./
 RUN dotnet restore ProjetFlashcard.sln
 COPY ./appsettings.docker.json ./appsettings.json
+EXPOSE 5285
 ENTRYPOINT [ "dotnet", "run", "--project", "WebApi/WebApi.csproj" ]
 
 # Copy the remaining files and build the application
